@@ -1,0 +1,30 @@
+{
+	"name": "react-redux-boilerplate",
+	"version": "1.0.0",
+	"description": "React + Redux + Webpack 2 boileplate.",
+	"scripts": {
+		"start": "webpack"
+	},
+	"author": "Emilio 'el pequeno' Carrino <emilio.carrino@unipegaso.it>",
+	"license": "WTFPL",
+	"devDependencies": {
+		"babel-core": "^6.23.1",
+		"babel-loader": "^7.1.2",
+		"babel-plugin-transform-decorators-legacy": "^1.3.4",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-preset-react": "^6.23.0",
+		"css-loader": "^0.28.7",
+		"extract-text-webpack-plugin": "^3.0.2",
+		"file-loader": "^0.11.2",
+		"webpack": "^3.8.1"
+	},
+	"dependencies": {
+		"prop-types": "^15.6.0",
+		"react": "^16.1.1",
+		"react-dom": "^16.1.1",
+		"react-redux": "^5.0.6",
+		"react-router-dom": "^4.2.2",
+		"redux": "^3.7.2",
+		"redux-thunk": "^2.2.0"
+	}
+}
