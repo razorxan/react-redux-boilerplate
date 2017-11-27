@@ -25565,7 +25565,7 @@ var _dec, _class;
 
 
 
-//import {} from './styles/global.css'
+
 const mapStateToProps = state => {
     return {
         todo: state.todo
@@ -25638,8 +25638,11 @@ let App = (_dec = Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connec
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(118);
-var _dec, _class;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions__ = __webpack_require__(118);
+var _dec, _class, _class2, _temp;
+
 
 
 
@@ -25653,13 +25656,14 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return Object(__WEBPACK_IMPORTED_MODULE_2_redux__["b" /* bindActionCreators */])({
-        addTodo: __WEBPACK_IMPORTED_MODULE_3__actions__["a" /* addTodo */],
-        removeTodo: __WEBPACK_IMPORTED_MODULE_3__actions__["b" /* removeTodo */],
-        setTodo: __WEBPACK_IMPORTED_MODULE_3__actions__["d" /* setTodo */],
-        removeTodoAsync: __WEBPACK_IMPORTED_MODULE_3__actions__["c" /* removeTodoAsync */]
+        addTodo: __WEBPACK_IMPORTED_MODULE_4__actions__["a" /* addTodo */],
+        addTodoAsync: __WEBPACK_IMPORTED_MODULE_4__actions__["b" /* addTodoAsync */],
+        removeTodo: __WEBPACK_IMPORTED_MODULE_4__actions__["c" /* removeTodo */],
+        removeTodoAsync: __WEBPACK_IMPORTED_MODULE_4__actions__["d" /* removeTodoAsync */],
+        setTodo: __WEBPACK_IMPORTED_MODULE_4__actions__["e" /* setTodo */]
     }, dispatch);
 };
-let Todo = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps), _dec(_class = class Todo extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+let Todo = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps), _dec(_class = (_temp = _class2 = class Todo extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
     constructor(props) {
         super(props);
@@ -25709,9 +25713,10 @@ let Todo = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* conne
         this.props.removeTodo(id);
     }
 
-    addTodo() {
+    addTodo(async) {
         if (this.state.inputValue.trim() === '') return;
-        this.props.addTodo({
+        const method = async ? 'Async' : '';
+        this.props['addTodo' + method]({
             id: Math.random().toString(36).substring(2) + new Date().getTime().toString(36),
             title: this.state.inputValue,
             checked: false
@@ -25746,13 +25751,20 @@ let Todo = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* conne
                 }, value: this.state.inputValue, onChange: this.handleInputChange.bind(this) }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'button',
-                { onClick: this.addTodo.bind(this) },
+                { onClick: this.addTodo.bind(this, false) },
                 'Add'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { onClick: this.addTodo.bind(this, true) },
+                'Add Async'
             )
         );
     }
 
-}) || _class);
+}, _class2.propTypes = {
+    todo: __WEBPACK_IMPORTED_MODULE_3_prop_types___default.a.array.isRequired
+}, _temp)) || _class);
 
 
 /***/ }),
@@ -25761,9 +25773,10 @@ let Todo = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* conne
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = addTodo;
-/* harmony export (immutable) */ __webpack_exports__["c"] = removeTodoAsync;
-/* harmony export (immutable) */ __webpack_exports__["b"] = removeTodo;
-/* harmony export (immutable) */ __webpack_exports__["d"] = setTodo;
+/* harmony export (immutable) */ __webpack_exports__["b"] = addTodoAsync;
+/* harmony export (immutable) */ __webpack_exports__["d"] = removeTodoAsync;
+/* harmony export (immutable) */ __webpack_exports__["c"] = removeTodo;
+/* harmony export (immutable) */ __webpack_exports__["e"] = setTodo;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_timers__);
 
@@ -25772,6 +25785,17 @@ function addTodo(payload) {
     return {
         type: 'ADD_TODO',
         payload
+    };
+}
+
+function addTodoAsync(payload) {
+    return dispatch => {
+        Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(() => {
+            dispatch({
+                type: 'ADD_TODO',
+                payload
+            });
+        }, 500);
     };
 }
 

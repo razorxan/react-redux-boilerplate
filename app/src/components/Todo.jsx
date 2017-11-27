@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import PropTypes from 'prop-types'
 import * as actions from '../actions'
 
 const mapStateToProps = state => {
@@ -11,14 +12,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         addTodo: actions.addTodo,
+        addTodoAsync: actions.addTodoAsync,
         removeTodo: actions.removeTodo,
-        setTodo: actions.setTodo,
-        removeTodoAsync: actions.removeTodoAsync
+        removeTodoAsync: actions.removeTodoAsync,
+        setTodo: actions.setTodo
     }, dispatch)
 }
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Todo extends Component
 {
+
+    static propTypes = {
+        todo: PropTypes.array.isRequired
+    }
 
     constructor (props)
     {
@@ -60,10 +66,11 @@ export default class Todo extends Component
         this.props.removeTodo(id)
     }
 
-    addTodo ()
+    addTodo (async)
     {
         if (this.state.inputValue.trim() === '') return
-        this.props.addTodo({
+        const method = async ? 'Async' : ''
+        this.props['addTodo' + method]({
             id: Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36),
             title: this.state.inputValue,
             checked: false
@@ -87,7 +94,8 @@ export default class Todo extends Component
                 <h2>Todo Page</h2>
                 <div>{this.renderTodos()}</div>
                 <input placeholder="Add Todo" onKeyUp={e => {if (e.which === 13) this.addTodo()}} value={this.state.inputValue} onChange={this.handleInputChange.bind(this)} />
-                <button onClick={this.addTodo.bind(this)}>Add</button>
+                <button onClick={this.addTodo.bind(this, false)}>Add</button>
+                <button onClick={this.addTodo.bind(this, true)}>Add Async</button>
             </div>
         )
     }

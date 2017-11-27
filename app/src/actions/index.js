@@ -8,6 +8,17 @@ export function addTodo (payload) {
     }
 }
 
+export function addTodoAsync (payload) {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch({
+                type: 'ADD_TODO',
+                payload
+            })
+        }, 500)
+    }
+}
+
 export function removeTodoAsync (payload) {
     return dispatch => {
         setTimeout(() => {

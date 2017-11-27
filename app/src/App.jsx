@@ -7,7 +7,7 @@ import Home from './components/Home'
 import Todo from './components/Todo'
 import About from './components/About'
 import './assets/css/main.css'
-//import {} from './styles/global.css'
+
 const mapStateToProps = state => {
     return {
         todo: state.todo
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 }
 
 
-@withRouter
+@withRouter 
 @connect(mapStateToProps)
 export default class App extends Component {
 
@@ -23,7 +23,6 @@ export default class App extends Component {
     {
         super(props)
     }
-	
 
     render ()
     {
